@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nancy — 7 Reasons I Love You</title>
+<style>
+body{
+    margin:0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(120deg,#050514,#0d1a2f);
+    color:#fff;
+    overflow:hidden;
+    position: relative;
+}
+.container{
+    max-width:800px;
+    padding:20px 30px;
+    background: rgba(0,0,0,0.3);
+    border-radius:16px;
+    box-shadow:0 10px 40px rgba(3,6,23,0.9);
+    backdrop-filter: blur(8px);
+    margin:100px auto;
+    position: relative;
+    z-index:2;
+}
+.message{
+    margin-bottom:40px;
+}
+h2{
+    font-size:22px;
+    color:#ffd36b;
+    margin-bottom:10px;
+}
+p{
+    font-size:18px;
+    line-height:1.6;
+}
+.heart{
+    position:absolute;
+    width:16px;
+    height:16px;
+    background: #ff6b9a;
+    transform:rotate(-45deg);
+    border-radius:4px;
+    animation:floatUp 5s linear infinite;
+    z-index:1;
+}
+@keyframes floatUp{
+    0%{opacity:0; transform:translateY(0) rotate(-45deg) scale(0.5);}
+    50%{opacity:1;}
+    100%{opacity:0; transform:translateY(-400px) rotate(-45deg) scale(1);}
+}
+</style>
+</head>
+<body>
+<div class="container" id="container"></div>
+
+<script>
+const messages=[
+{
+title:"1. Your Loyalty — My Royalty Queen 👑",
+text:"Nancy, your loyalty isn’t just rare — it’s royal. The way you stay true, no matter what, makes me feel like I’ve found someone who belongs to me beyond time and doubt. You don’t just love — you commit with your whole soul. I’ve never seen anyone so pure in love, so protective of the bond we share. You are my definition of loyalty."
+},
+{
+title:"2. Your Support — The Strength I Stand On 💫",
+text:"Even when I don’t ask, you feel when something’s wrong. You get angry not because of the problem — but because you care so deeply that my pain becomes your own. The way you rush to talk to me, to calm me, to make sure I’m fine — that’s not love, that’s devotion. You’ve turned care into an instinct, and that melts me every single time."
+},
+{
+title:"3. Your Softness and Care — My Peace in Chaos 🌸",
+text:"Whenever I’m tired from work, or go to my friend’s room to help with cooking or washing dishes, you’re the first one to say — “Don’t do that, take rest.” You’re not just concerned; you feel my exhaustion as your own. That level of care, that nurturing warmth — that’s what makes you home for me. You don’t just love me, you take care of me like I’m part of your soul."
+},
+{
+title:"4. The Way You Walk — Confidence Wrapped in Grace 🦁🐾",
+text:"I still remember Raipur station — February 8, 2025. The first time I saw you… my heart just stopped for a second. The way you walked — confident, fearless, graceful — like a cat with the attitude of a lioness. Your presence demanded respect without saying a word. In that moment, I knew — this girl isn’t ordinary. She’s the one."
+},
+{
+title:"5. Your Cuteness — My Endless Madness 💞",
+text:"There’s something about your smile, your expressions, that drives me absolutely crazy. You don’t even try, and yet you melt me with every look, every tiny reaction. It’s like you have your own kind of magic — one that pulls me closer every single time I see you."
+},
+{
+title:"6. Your Heart — The Rarest Thing I’ve Ever Known 💎",
+text:"You don’t just love, Nancy — you feel. You care deeply, forgive easily, support endlessly, and still smile through your pain. That’s what makes your heart so precious to me. You’ve taught me that real love isn’t about perfection — it’s about presence. And you’ve never failed to be there."
+},
+{
+title:"7. You and Me — Our Forever Connection 🔥",
+text:"From that first meeting to every moment we’ve shared since, there’s something unexplainable about “us.” It’s more than love — it’s like our souls already knew each other long before we met. Every time I look at you, I feel proud, lucky, and complete. You are my heartbeat, my peace, my everything."
+}
+];
+
+const container=document.getElementById('container');
+
+function typeText(el, text, speed=30){
+    return new Promise(res=>{
+        let i=0;
+        el.textContent = '';
+        function type(){
+            if(i<text.length){
+                el.textContent+=text[i];
+                i++;
+                setTimeout(type,speed);
+            }else{
+                res();
+            }
+        }
+        type();
+    });
+}
+
+async function showMessages(){
+    for(let msg of messages){
+        // Remove previous
+        container.innerHTML = '';
+        // Create new message
+        const div=document.createElement('div');
+        div.className='message';
+        const h=document.createElement('h2');
+        h.textContent=msg.title;
+        const p=document.createElement('p');
+        div.appendChild(h);
+        div.appendChild(p);
+        container.appendChild(div);
+        createHearts(8);
+        await typeText(p,msg.text,20);
+        await new Promise(r=>setTimeout(r,2000));
+    }
+}
+
+function createHearts(count){
+    for(let i=0;i<count;i++){
+        const h=document.createElement('div');
+        h.className='heart';
+        h.style.left=Math.random()*window.innerWidth+'px';
+        h.style.animationDuration=(4+Math.random()*2)+'s';
+        h.style.width=(12+Math.random()*8)+'px';
+        h.style.height=(12+Math.random()*8)+'px';
+        document.body.appendChild(h);
+        setTimeout(()=>h.remove(),5000);
+    }
+}
+
+showMessages();
+</script>
+</body>
+</html>
